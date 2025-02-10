@@ -1,0 +1,64 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  phone     String?
+  lastLogin DateTime @default(now())
+  createdAt DateTime @default(now())
+
+  resetPasswordToken     String?
+  resetPasswordExpiresAt DateTime?
+
+  addresses Address[]
+}
+
+model Address {
+  id        String   @id @default(uuid())
+  region    String
+  town      String
+  landmark  String?
+  createdAt DateTime @default(now())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Product {
+  id           String  @id @default(uuid())
+  name         String
+  price        Decimal
+  out_of_stock Boolean @default(false)
+  discount     Decimal @default(0)
+}
+
+model Order {
+  id        String   @id @default(uuid())
+  total     Decimal
+  createdAt DateTime @default(now())
+
+  items OrderItem[]
+}
+
+model OrderItem {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  orderId String
+  order   Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+}
