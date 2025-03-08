@@ -46,6 +46,8 @@ model Product {
   price        Decimal
   out_of_stock Boolean @default(false)
   discount     Decimal @default(0)
+  stock        Int     @default(0)
+  image        String  @default("https://placehold.co/600x400")
 }
 
 model Order {
