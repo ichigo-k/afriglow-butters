@@ -50,10 +50,18 @@ model Product {
   OrderItem    OrderItem[]
 }
 
+enum OrderStatus {
+  PROCESSING
+  COMPLETED
+  SHIPPED
+}
+
 model Order {
-  id        String   @id @default(uuid())
+  id        String      @id @default(uuid())
   total     Decimal
-  createdAt DateTime @default(now())
+  status    OrderStatus @default(PROCESSING)
+  paid      Boolean     @default(false)
+  createdAt DateTime    @default(now())
 
   items     OrderItem[]
   address   Address     @relation(fields: [addressId], references: [id])
