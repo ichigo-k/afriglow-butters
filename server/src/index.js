@@ -1,5 +1,4 @@
 import express from "express"
-import "dotenv/config.js"
 import authRoutes from "./routes/auth.route.js"
 import productRoutes from "./routes/products.route.js"
 import orderRoutes from "./routes/order.route.js"
@@ -10,6 +9,9 @@ const port = process.env.PORT || 3000
 app.use(express.json())
 app.use(cookieParser())
 
+app.get("/", (req, res) => {
+    res.send("Api is up and running ...")
+})
 app.use("/api/v1/auth", authRoutes)
 app.use("/api/v1/products", productRoutes)
 app.use(orderRoutes)

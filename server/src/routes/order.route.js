@@ -6,8 +6,8 @@ import { adminOnly } from "../middleware/adminOnly.js"
 const router = express.Router()
 
 router.get("/", verifyToken, adminOnly, getAllOrders)
-router.get("/:status", verifyToken, adminOnly, getOrdersByStatus)
-router.get("/:id", getSingleOrder)
-router.post("/", addOrder)
+router.get("/status/:status", verifyToken, adminOnly, getOrdersByStatus)
+router.get("/:id", verifyToken, getSingleOrder)
+router.post("/", verifyToken, addOrder)
 
 export default router

@@ -5,8 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon src/index.js",
-    "start": "node src/index.js"
+    "dev": "nodemon -L src/index.js",
+    "migrate:dev": "prisma migrate deploy --schema=src/prisma/schema.prisma && npm run dev "
   },
   "keywords": [],
   "author": "",

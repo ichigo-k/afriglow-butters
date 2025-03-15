@@ -1,0 +1,29 @@
+services:
+  node-api:
+    build:
+      context: ./server/
+      args:
+        - NODE_ENV=development
+    volumes:
+      - ./server/:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=kephas
+      - POSTGRES_PASSWORD=mypassword
+      - POSTGRES_DB=afriglow
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-data:

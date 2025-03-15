@@ -1,0 +1,13 @@
+services:
+  node-api:
+    build: ./server/
+    ports:
+      - 3000:${PORT}
+    environment:
+      - PORT=${PORT}
+      - EMAIL_ACCOUNT=${EMAIL_ACCOUNT}
+      - GOOGLE_APP_PASSWORD=${GOOGLE_APP_PASSWORD}
+      - CLIENT_URL=${CLIENT_URL}
+      - JWT_SECRET=${JWT_SECRET}
+      - DATABASE_URL=${DATABASE_URL}
+    command: npm run migrate:dev

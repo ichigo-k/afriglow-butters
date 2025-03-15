@@ -1,5 +1,5 @@
-import { PrismaClient } from "@prisma/client";
-import z from "zod"
+import { PrismaClient, OrderStatus } from "@prisma/client";
+import { z } from "zod"
 
 const prisma = new PrismaClient();
 
@@ -17,10 +17,17 @@ export async function getAllOrders(req, res) {
 export async function getOrdersByStatus(req, res) {
     try {
         const { status } = req.params;
+        if (!Object.values(OrderStatus).includes(status.toUpperCase())) {
+            return res.status(400).json({ success: false, error: "Invalid order status" });
+        }
+
+        const enumStatus = OrderStatus[status.toUpperCase()]; // Convert string to enum
+
         const orders = await prisma.order.findMany({
-            where: { status }
+            where: { status: enumStatus }
         });
-        const count = await prisma.order.count({ where: { status } });
+        const count = await prisma.order.count({ where: { status: enumStatus } });
+
         res.status(200).json({ success: true, count, orders });
     } catch (err) {
         res.status(400).json({ success: false, error: err.message });
