@@ -14,6 +14,6 @@ export async function adminOnly(req, res, next) {
         if (user.role !== "admin") throw new Error("Access Denied -- Admin only route")
         next()
     } catch (error) {
-        res.status(401).json({ message: error.message });
+        res.status(401).json({ success: false, message: error.message });
     }
 }

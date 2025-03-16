@@ -1,4 +1,4 @@
-export const WELCOME_EMAIL =`
+export const WELCOME_EMAIL = `
 <!DOCTYPE html>
 <html>
 <head>
@@ -144,7 +144,7 @@ export const PASSWORD_RESET_MAIL = `
 
 `
 
-export const PASSWORD_RESET_SUCCESS_MAIL =`
+export const PASSWORD_RESET_SUCCESS_MAIL = `
 <!DOCTYPE html>
 <html>
 <head>
@@ -213,4 +213,78 @@ export const PASSWORD_RESET_SUCCESS_MAIL =`
 </body>
 </html>
 
+`
+
+export const PURCHASE_SUCCESSFUL = `
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Purchase Successful</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+        h1 {
+            color: #4CAF50;
+        }
+        p {
+            color: #333;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        .highlight {
+            font-weight: bold;
+            color: #e07a5f;
+        }
+        .cta-button {
+            display: inline-block;
+            background: #4CAF50;
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+        .cta-button:hover {
+            background: #45a049;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Purchase Successful!</h1>
+    <p>Thank you for your purchase! Your order has been successfully placed and is being processed.</p>
+    
+    <p class="highlight">Order ID: {order_id}</p>
+    
+    <p>You can track your order status or view your purchase details by clicking the button below:</p>
+    
+    <a href="{order_tracking_link}" class="cta-button">View Order Details</a>
+    
+    <p class="footer">If you have any questions or concerns about your order, please contact our support team.</p>
+</div>
+
+</body>
+</html>
 `

@@ -9,6 +9,6 @@ export async function verifyToken(req, res, next) {
         req.userId = decoded.id
         next()
     } catch (error) {
-        res.status(401).json({ message: error.message });
+        res.status(401).json({ success: false, message: error.message });
     }
 }

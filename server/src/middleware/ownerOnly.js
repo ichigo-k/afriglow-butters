@@ -21,6 +21,6 @@ export default async function ownerOnly(req, res, next) {
         if (user.id !== order.userId) throw new Error("Access Denied -- Cannot access this resource")
         next()
     } catch (error) {
-        res.status(401).json({ message: error.message });
+        res.status(401).json({ success: false, message: error.message });
     }
 }

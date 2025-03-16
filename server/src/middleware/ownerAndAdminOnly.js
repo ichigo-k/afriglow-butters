@@ -21,6 +21,6 @@ export default async function ownerAndAdminOnly(req, res, next) {
         if (user.role !== "admin" && user.id !== order.userId) throw new Error("Access Denied -- cannot access this resource")
         next()
     } catch (error) {
-        res.status(401).json({ message: error.message });
+        res.status(401).json({ success: false, message: error.message });
     }
 }

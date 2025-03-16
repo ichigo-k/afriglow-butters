@@ -1,6 +1,7 @@
 import { PrismaClient, OrderStatus } from "@prisma/client";
 import { z } from "zod"
 import axios from "axios"
+import { sendPurchaseSuccessEmail } from "../mail/emails.js";
 
 const prisma = new PrismaClient();
 
@@ -22,7 +23,7 @@ export async function getOrdersByStatus(req, res) {
             return res.status(400).json({ success: false, error: "Invalid order status" });
         }
 
-        const enumStatus = OrderStatus[status.toUpperCase()]; // Convert string to enum
+        const enumStatus = OrderStatus[status.toUpperCase()];
 
         const orders = await prisma.order.findMany({
             where: { status: enumStatus }
@@ -160,6 +161,7 @@ export async function makePayment(req, res) {
 
 export async function verifyPayment(req, res) {
     try {
+        const { userId } = req
         const { reference } = req.query;
         if (!reference) {
             return res.status(400).json({ error: "Reference is required" });
@@ -167,6 +169,11 @@ export async function verifyPayment(req, res) {
         const order = await prisma.order.findFirst({
             where: {
                 reference: reference
+            }
+        })
+        const user = await prisma.user.findUnique({
+            where: {
+                id: userId
             }
         })
         if (!order) return res.status(401).json({ success: false, message: "Payment not successful!" });
@@ -186,6 +193,8 @@ export async function verifyPayment(req, res) {
                     paid: true
                 }
             })
+
+            sendPurchaseSuccessEmail(user.email, process.env.CLIENT_URL, order.id)
             return res.status(200).json({ success: true, message: "Payment successful!", paymentData });
         } else {
             return res.status(400).json({ success: false, error: "Payment not successful!" });
@@ -195,3 +204,52 @@ export async function verifyPayment(req, res) {
         return res.status(500).json({ error: "Something went wrong!" });
     }
 }
+
+export async function cancelOrder(req, res) {
+    try {
+        const { id } = req.params;
+        const order = await prisma.order.findUnique({
+            where: { id }
+        });
+
+        if (!order) return res.status(404).json({ success: false, message: "Order not found" });
+        if (order.paid) throw new Error("This order has already been paid for and cannot be canceled.");
+        await prisma.order.delete({
+            where: { id }
+        })
+        res.status(200).json({ success: true, message: "Order has been cancelled" })
+    } catch (err) {
+        res.status(400).json({ success: false, error: err.message });
+    }
+}
+
+export async function changeStatus(req, res) {
+    try {
+        const { id } = req.params;
+        const order = await prisma.order.findUnique({
+            where: { id }
+        });
+
+        if (!order) return res.status(404).json({ success: false, message: "Order not found" });
+        if (!order.paid) throw new Error("Order status cannot be changed because payment has not been made.");
+        const { status } = req.params;
+        if (!Object.values(OrderStatus).includes(status.toUpperCase())) {
+            return res.status(400).json({ success: false, error: "Invalid order status" });
+        }
+
+        const enumStatus = OrderStatus[status.toUpperCase()];
+        await prisma.order.update({
+            where: { id },
+            data: {
+                status: enumStatus
+            }
+        })
+        res.status(200).json({ success: true, message: "Order status has been updated" })
+    } catch (err) {
+        res.status(400).json({ success: false, error: err.message });
+    }
+}
+
+
+
+
