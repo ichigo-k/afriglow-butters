@@ -61,6 +61,7 @@ model Order {
   total     Decimal
   status    OrderStatus @default(PROCESSING)
   paid      Boolean     @default(false)
+  reference String      @default("")
   createdAt DateTime    @default(now())
 
   items     OrderItem[]
