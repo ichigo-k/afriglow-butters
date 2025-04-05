@@ -1,9 +1,9 @@
-import { PrismaClient, OrderStatus } from "@prisma/client";
+import prisma from "../config/prisma.js";
 import { z } from "zod"
 import axios from "axios"
 import { sendPurchaseSuccessEmail } from "../mail/emails.js";
 
-const prisma = new PrismaClient();
+
 
 export async function getAllOrders(req, res) {
     try {

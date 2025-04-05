@@ -5,22 +5,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Afriglow Butters API</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        @keyframes ripple {
+            0% {
+                box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5);
+            }
+
+            50% {
+                box-shadow: 0 0 10px 10px rgba(34, 197, 94, 0.3);
+            }
+
+            100% {
+                box-shadow: 0 0 20px 20px rgba(34, 197, 94, 0);
+            }
+        }
+
+        .ripple-border {
+            animation: ripple 1.5s infinite ease-out;
+        }
+    </style>
 </head>
 
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
 
-    <div class="flex flex-col items-center  rounded-lg p-8 w-[90%] md:w-[30rem] text-center">
+    <div class="flex flex-col items-center rounded-lg p-8 w-[90%] md:w-[30rem] text-center">
 
-        <!-- API Logo -->
-        <img src="./images/api.png" alt="API Logo" class="h-40 w-auto mb-4 drop-shadow-md">
+        <div class="h-[20rem] w-[20rem] rounded-full  ripple-border flex items-center justify-center p-[4rem]">
+            <!-- API Logo -->
+            <img src="./images/api.png" alt="API Logo" class="object-cover w-auto mb-4 drop-shadow-md">
+        </div>
 
         <!-- Text Content -->
-        <h1 class="text-3xl font-bold text-gray-900">Afriglow Butters API</h1>
-        <p class="text-green-600 font-medium mt-2 text-lg">✅ API is live and running...</p>
+        <h1 class="text-3xl font-bold text-gray-900 mt-2">Afriglow Butters</h1>
+        <p class="text-green-600 font-medium mt-2 text-lg" id="dots">API is live and running</p>
 
     </div>
 
 </body>
+<script>
+    const dots = document.getElementById("dots");
+    const baseText = "API is live and running";
+    let count = 0;
+
+    setInterval(() => {
+        count = (count + 1) % 4; // Loops between 0, 1, 2, 3
+        dots.innerText = baseText + ".".repeat(count);
+    }, 500); 
+</script>
+
 
 </html>

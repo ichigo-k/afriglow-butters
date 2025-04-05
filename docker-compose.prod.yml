@@ -7,3 +7,11 @@ services:
     environment:
       - NODE_ENV=production
     command: npm run migrate:start
+
+  react-app:
+    build:
+      context: ./client
+      args:
+        - NODE_ENV=production
+    environment:
+      - NODE_ENV=production

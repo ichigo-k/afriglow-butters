@@ -12,3 +12,10 @@ services:
       - DATABASE_URL=${DATABASE_URL}
       - PAYSTACK_SECRET_KEY=${PAYSTACK_SECRET_KEY}
       - PAYSTACK_PUBLIC_KEY=${PAYSTACK_PUBLIC_KEY}
+
+  react-app:
+    build: ./client
+    ports:
+      - 9000:9000
+    stdin_open: true
+    tty: true

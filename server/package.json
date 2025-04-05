@@ -7,8 +7,8 @@
   "scripts": {
     "dev": "nodemon -L src/index.js",
     "start": "node index.js",
-    "migrate:dev": "prisma migrate deploy --schema=src/prisma/schema.prisma && npm run dev",
-    "migrate:start": "prisma migrate deploy --schema=src/prisma/schema.prisma && npm run start"
+    "migrate:dev": "prisma migrate deploy  && npm run dev",
+    "migrate:start": "prisma migrate deploy && npm run start"
   },
   "keywords": [],
   "author": "",

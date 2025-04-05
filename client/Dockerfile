@@ -7,9 +7,9 @@ RUN if [ "$NODE_ENV" = "development" ] ; then \
     else \
     npm install --only=production;\
     fi
-COPY ./ ./
-RUN npx prisma generate
-ENV DATABASE_URL=${DATABASE_URL}
-ENV PORT=${PORT}
-EXPOSE $PORT
-CMD [ "node","index.js" ]
+COPY . .
+RUN if [ "$NODE_ENV" = "production" ]; then \
+    npm run build; \
+    fi
+EXPOSE 9000
+CMD ["npm","run","start"]

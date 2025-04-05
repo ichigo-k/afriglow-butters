@@ -1,11 +1,9 @@
-import {PrismaClient} from "@prisma/client";
+import prisma from "../config/prisma.js";
 import bcrypt from  "bcrypt"
 import { generateTokenAndSetCookie } from "../utils/generateTokenAndSetCookies.js"
 import { sendWelcomeEmail, sendResetPasswordEmail, sendResetSuccessEmail } from "../mail/emails.js";
 import crypto from "crypto"
 
-
-const prisma = new PrismaClient()
 
 const clientUrl = process.env.CLIENT_URL
 
