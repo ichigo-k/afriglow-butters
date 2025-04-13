@@ -15,25 +15,16 @@ export async function editInfo(req, res) {
         const { userId } = req
 
 
-        if (validatedData.email) {
-            const emailAlreadyExists = await prisma.user.findUnique({
-                where: { email: validatedData.email },
-            })
-            if (emailAlreadyExists) {
-                throw new Error("Email already taken");
-            }
-        }
-
         const user = await prisma.user.findUnique({
             where: { id: userId }
         })
         if (!user) throw new Error("User not found")
-        await prisma.user.update({
+        const UpdatedUser = await prisma.user.update({
             where: {
                 id: userId
             }, data: validatedData
         })
-        res.status(201).json({ success: true, message: "User details updated successfully" })
+        res.status(201).json({ success: true, message: "User details updated successfully", user: UpdatedUser })
 
     } catch (err) {
         res.status(400).json({ success: false, error: err.message });
@@ -49,7 +40,6 @@ const passwordSchema = z.object({
 export async function changePassword(req, res) {
     try {
         const { userId } = req
-        console.log("This is it ", userId)
         const validatedData = passwordSchema.parse(req.body);
         const { currentPassword, newPassword } = validatedData;
 

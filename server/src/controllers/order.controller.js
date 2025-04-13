@@ -76,11 +76,20 @@ const orderSchema = z.object({
 });
 
 export async function addOrder(req, res) {
-    const validatedData = orderSchema.parse(req.body);
-    const { orderDetails, items, address } = validatedData;
-    const { userId } = req;
 
     try {
+
+        const result = orderSchema.parse(req.body);
+
+        // if (!result.success) {
+        //     return res.status(400).json({
+        //         message: "Validation failed",
+        //         errors: result.error.errors,
+        //     });
+        // }
+        const { orderDetails, items, address } = result;
+        const { userId } = req;
+
 
         const newAddress = await prisma.address.create({
             data: {
@@ -127,7 +136,7 @@ export async function makePayment(req, res) {
         });
 
         if (!order) return res.status(404).json({ success: false, message: "Order not found" });
-        if (order.paid == true) throw new Error("Order already paid")
+        if (order.paid === true) throw new Error("Order already paid")
 
 
         const url = "https://api.paystack.co/transaction/initialize";
@@ -137,7 +146,7 @@ export async function makePayment(req, res) {
         };
         const data = {
             email: order.User.email,
-            amount: order.total * 100
+            amount: Math.round(parseFloat(order.total) * 100)
         };
 
         axios.post(url, data, { headers })

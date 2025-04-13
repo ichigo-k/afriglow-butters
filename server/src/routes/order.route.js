@@ -12,7 +12,7 @@ router.get("/", verifyToken, adminOnly, getAllOrders)
 router.get("/status/:status", verifyToken, adminOnly, getOrdersByStatus)
 router.get("/:id", verifyToken, ownerAndAdminOnly, getSingleOrder)
 router.post("/", verifyToken, addOrder)
-router.post("/pay/:id", verifyToken, ownerOnly, makePayment)
+router.get("/pay/:id", verifyToken, ownerOnly, makePayment)
 router.delete("/cancel/:id", verifyToken, ownerOnly, cancelOrder)
 router.post("/change-status/:id", verifyToken, adminOnly, changeStatus)
 

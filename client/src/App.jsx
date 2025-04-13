@@ -7,6 +7,12 @@ import ResetPassword from "./pages/auth/ResetPassword.jsx";
 import useAuthStore from "./store/authStore.jsx";
 import {LoaderCircle} from "lucide-react";
 import RedirectAuthenticatedUser from "./components/auth/RedirectAuthenticatedUser.jsx";
+import Shop from "./pages/user/Shop.jsx";
+import Cart from "./pages/user/Cart.jsx";
+import Profile from "./pages/user/Profile.jsx";
+import ProfileData from "./components/ProfileData.jsx";
+import {UpdateData} from "./pages/user/UpdateData.jsx";
+import {UserOrders} from "./pages/user/UserOrders.jsx";
 
 function App() {
 
@@ -29,6 +35,13 @@ function App() {
        <Route path={"/signup"} element={<RedirectAuthenticatedUser><SignUp/> </RedirectAuthenticatedUser>} />
        <Route path={"/forgot-password"} element={<RedirectAuthenticatedUser> <ForgotPassword/> </RedirectAuthenticatedUser>}/>
        <Route path={"/reset-password/:id"} element={<RedirectAuthenticatedUser> <ResetPassword/> </RedirectAuthenticatedUser>} />
+
+
+       <Route path={"/store"} element={<Shop/>} />
+       <Route path={"/cart"} element={<Cart/>} />
+       <Route path={"/profile"} element={<UpdateData/>} />
+       <Route path={"/orders"} element={<UserOrders/> } />
+
    </Routes>
   )
 }

@@ -99,5 +99,44 @@ const useAuthStore = create((set)=>({
             set({ isCheckingAuth: false });
         }
     },
+    updateInfo: async (data) => {
+        try{
+            set({isLoading: true})
+            const response = await axios.patch(`${SERVER_URL}/v1/user/edit`, data, {
+                withCredentials: true
+            })
+
+            if(response.data.user){
+                set({
+                    user: response.data.user,
+                    isAuth: true,
+                    isLoading: false
+                })
+            }
+            toast.success("Details updated successfully");
+
+        }catch (e){
+            console.log("Error: ", e)
+            set({isLoading: false, error: e.response.data.error})
+        }finally {
+            set({isLoading: false, error: ""})
+        }
+    },
+    changePassword: async (data) => {
+        try{
+            set({isLoading: true})
+            const response = await axios.post(`${SERVER_URL}/v1/user/change-password`, data, {
+                withCredentials: true
+            })
+
+            toast.success("Password updated successfully");
+
+        }catch (e){
+            console.log("Error: ", e)
+            set({isLoading: false, error: e.response.data.error})
+        }finally {
+            set({isLoading: false, error: ""})
+        }
+    }
 }))
 export default useAuthStore

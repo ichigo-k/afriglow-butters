@@ -11,7 +11,7 @@ import cors from "cors"
 
 
 
-
+console.log(process.env.DATABASE_URL)
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express()
 const port = process.env.PORT || 3000
