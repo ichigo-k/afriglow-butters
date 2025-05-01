@@ -161,17 +161,14 @@ export async function makePayment(req, res) {
                     }, data: { reference: response.data.data.reference }
 
                 })
-                return res.redirect(`${process.env.CLIENT_URL}/success`);
+                res.status(200).json(response.data);
             })
             .catch(error => {
+                res.status(400).json({ success: false, message: "An error occurred " });
                 console.log(error)
-                return res.redirect(`${process.env.CLIENT_URL}/error`);
-
             });
     } catch (err) {
-        console.log(err)
-        return res.redirect(`${process.env.CLIENT_URL}/error`);
-
+        res.status(400).json({ success: false, error: err.message });
     }
 }
 
@@ -211,13 +208,13 @@ export async function verifyPayment(req, res) {
             })
 
             sendPurchaseSuccessEmail(user.email, process.env.CLIENT_URL, order.id)
-            return res.status(200).json({ success: true, message: "Payment successful!", paymentData });
+            return res.redirect(`${process.env.CLIENT_URL}/success`);
         } else {
-            return res.status(400).json({ success: false, error: "Payment not successful!" });
+            return res.redirect(`${process.env.CLIENT_URL}/error`);
         }
     } catch (error) {
         console.log(error)
-        return res.status(500).json({ error: "Something went wrong!" });
+        return res.redirect(`${process.env.CLIENT_URL}/error`);
     }
 }
 
