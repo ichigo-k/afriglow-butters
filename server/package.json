@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon -L src/index.js",
-    "start": "node index.js",
+    "start": "node src/index.js",
     "migrate:dev": "prisma migrate deploy  && npm run dev",
     "migrate:start": "prisma migrate deploy && npm run start"
   },

@@ -12,4 +12,4 @@ RUN npx prisma generate
 ENV DATABASE_URL=${DATABASE_URL}
 ENV PORT=${PORT}
 EXPOSE $PORT
-CMD [ "node","src/index.js" ]
+CMD [ "npm","run", "migrate:start" ]
