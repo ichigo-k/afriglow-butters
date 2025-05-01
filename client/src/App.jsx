@@ -9,10 +9,12 @@ import {LoaderCircle} from "lucide-react";
 import RedirectAuthenticatedUser from "./components/auth/RedirectAuthenticatedUser.jsx";
 import Shop from "./pages/user/Shop.jsx";
 import Cart from "./pages/user/Cart.jsx";
-import Profile from "./pages/user/Profile.jsx";
-import ProfileData from "./components/ProfileData.jsx";
 import {UpdateData} from "./pages/user/UpdateData.jsx";
 import {UserOrders} from "./pages/user/UserOrders.jsx";
+import ViewOrder from "./pages/user/ViewOrder.jsx"
+import Successful from "./pages/user/Sucessful.jsx";
+import Error from "./pages/user/Error.jsx";
+import ProtectedRoute from "./components/auth/ProtectedRoute.jsx";
 
 function App() {
 
@@ -35,12 +37,13 @@ function App() {
        <Route path={"/signup"} element={<RedirectAuthenticatedUser><SignUp/> </RedirectAuthenticatedUser>} />
        <Route path={"/forgot-password"} element={<RedirectAuthenticatedUser> <ForgotPassword/> </RedirectAuthenticatedUser>}/>
        <Route path={"/reset-password/:id"} element={<RedirectAuthenticatedUser> <ResetPassword/> </RedirectAuthenticatedUser>} />
-
-
-       <Route path={"/store"} element={<Shop/>} />
-       <Route path={"/cart"} element={<Cart/>} />
-       <Route path={"/profile"} element={<UpdateData/>} />
-       <Route path={"/orders"} element={<UserOrders/> } />
+       {/*<Route path={"/store"} element={<Shop/>} />*/}
+       <Route path={"/cart"} element={<ProtectedRoute><Cart/></ProtectedRoute>} />
+       <Route path={"/profile"} element={<ProtectedRoute><UpdateData/></ProtectedRoute>} />
+       <Route path={"/orders"} element={<ProtectedRoute><UserOrders/></ProtectedRoute> } />
+       <Route path={"/order/:id"} element={<ProtectedRoute><ViewOrder/></ProtectedRoute>}/>
+       <Route path={"/success"} element={<Successful/>}/>
+       <Route path={"/error"} element={<Error/>} />
 
    </Routes>
   )

@@ -12,7 +12,7 @@ export default function Shop() {
 
     return (
         <>
-            <Navbar />
+
 
             {/*/!* Hero: Ghanaian Elegance *!/*/}
             {/*<section className="relative py-28 px-6 overflow-hidden">*/}
@@ -33,11 +33,11 @@ export default function Shop() {
             {/*</section>*/}
 
             {/* Product Grid */}
-            <section className="bg-white  py-16">
+            <section className="bg-white  py-[3rem]">
                 <div className="max-w-7xl mx-auto">
-                    {/*<h2 className="text-3xl font-bold text-gray-800 mb-10 text-center">*/}
-                    {/*    Popular Ghanaian Picks*/}
-                    {/*</h2>*/}
+                    <h2 className="text-3xl font-bold text-gray-800 mb-5 text-center">
+                        Our Products
+                    </h2>
 
                     {isLoading ? (
                         <div className="flex justify-center items-center h-48">

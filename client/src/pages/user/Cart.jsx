@@ -1,5 +1,5 @@
 import Navbar from "../../components/Navbar.jsx";
-import useCartStore from "../../store/orderStore.jsx";
+import useCartStore from "../../store/cartStore.jsx";
 import { Plus, Minus } from "lucide-react";
 import {Link} from "react-router";
 import {motion} from "framer-motion";
@@ -28,7 +28,7 @@ export default function Cart() {
     return (
         <>
             <Navbar />
-            <section className="w-full min-h-screen bg-white p-6">
+            <section className="w-full min-h-screen bg-white p-6 mt-[4rem]">
                 <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
 
                     <div className="lg:col-span-2">

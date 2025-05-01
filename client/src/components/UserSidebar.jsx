@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import Login from "../pages/auth/Login.jsx";
 import useAuthStore from "../store/authStore.jsx";
-import useCartStore from "../store/orderStore.jsx";
+import useCartStore from "../store/cartStore.jsx";
 
 export default function Sidebar() {
     const [showLogin, setShowLogin] = useState(false);

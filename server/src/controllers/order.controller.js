@@ -43,9 +43,13 @@ export async function getSingleOrder(req, res) {
         const order = await prisma.order.findUnique({
             where: { id },
             include: {
-                items: true,
+                items: {
+                    include:{
+                        product: true
+                    }
+                },
                 address: true,
-                User: true
+                User: true,
             }
         });
 

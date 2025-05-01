@@ -85,11 +85,7 @@ export async function profile(req, res) {
         const user = await prisma.user.findUnique({
             where: { id: userId },
             include: {
-                order: {
-                    where: {
-                        paid: false
-                    }
-                },
+                order: true
             }
         })
         if (!user) throw new Error("User does not exist")

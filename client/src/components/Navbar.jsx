@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import Login from "../pages/auth/Login.jsx";
 import useAuthStore from "../store/authStore.jsx";
-import useCartStore from "../store/orderStore.jsx";
+import useCartStore from "../store/cartStore.jsx";
 
 export default function Navbar() {
     const [showLogin, setShowLogin] = useState(false);
@@ -14,7 +14,7 @@ export default function Navbar() {
     const cartItemCount = cart.length;
 
     return (
-        <nav className="w-full px-4 py-3 flex items-center justify-between bg-white border-b border-gray-100">
+        <nav className="w-full px-4 py-3 flex items-center justify-between bg-white border-b border-gray-100 fixed z-[999] top-0">
             {/* Logo */}
             <Link
                 to="/"
@@ -28,12 +28,12 @@ export default function Navbar() {
                 {isAuth ? (
                     <div className="flex items-center gap-4">
                         {/* Store Button */}
-                        <Link
-                            to="/store"
-                            className="px-4 py-2 rounded-xl bg-green-600 hover:bg-green-700 text-white text-sm font-medium transition-shadow shadow"
-                        >
-                            View Store
-                        </Link>
+                        {/*<Link*/}
+                        {/*    to="/store"*/}
+                        {/*    className="px-4 py-2 rounded-xl bg-green-600 hover:bg-green-700 text-white text-sm font-medium transition-shadow shadow"*/}
+                        {/*>*/}
+                        {/*    View Store*/}
+                        {/*</Link>*/}
 
                         {/* Cart Icon with Counter */}
                         <Link to="/cart" className="relative group">

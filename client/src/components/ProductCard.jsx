@@ -1,5 +1,5 @@
 import useAuthStore from "../store/authStore.jsx";
-import useCartStore from "../store/orderStore.jsx";
+import useCartStore from "../store/cartStore.jsx";
 import { motion } from "framer-motion";
 
 export default function ProductCard({ name, id, out_of_stock, image, discount, stock, price }) {
