@@ -177,7 +177,7 @@ export async function verifyPayment(req, res) {
         const { userId } = req
         const { reference } = req.query;
         if (!reference) {
-            return res.status(400).json({ error: "Reference is required" });
+            return res.redirect(`${process.env.CLIENT_URL}/error`);
         }
         const order = await prisma.order.findFirst({
             where: {
@@ -189,7 +189,7 @@ export async function verifyPayment(req, res) {
                 id: userId
             }
         })
-        if (!order) return res.status(401).json({ success: false, message: "Payment not successful!" });
+        if (!order) return res.redirect(`${process.env.CLIENT_URL}/error`);
 
         const response = await axios.get(`https://api.paystack.co/transaction/verify/${reference}`, {
             headers: {
