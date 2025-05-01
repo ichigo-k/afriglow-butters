@@ -161,14 +161,17 @@ export async function makePayment(req, res) {
                     }, data: { reference: response.data.data.reference }
 
                 })
-                res.status(200).json(response.data);
+                return res.redirect(`${process.env.CLIENT_URL}/success`);
             })
             .catch(error => {
-                res.status(400).json({ success: false, message: "An error occurred " });
                 console.log(error)
+                return res.redirect(`${process.env.CLIENT_URL}/error`);
+
             });
     } catch (err) {
-        res.status(400).json({ success: false, error: err.message });
+        console.log(err)
+        return res.redirect(`${process.env.CLIENT_URL}/error`);
+
     }
 }
 

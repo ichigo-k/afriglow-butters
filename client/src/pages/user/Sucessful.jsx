@@ -42,7 +42,7 @@ export default function Successful() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     className="mt-8 px-6 py-3 bg-green-600 text-white rounded-lg font-medium shadow-md hover:bg-green-700 transition"
-                    onClick={() => window.location.href = '/store'}
+                    onClick={() => window.location.href = '/'}
                 >
                     Go to Store
                 </motion.button>
