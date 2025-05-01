@@ -10,7 +10,7 @@ export function generateTokenAndSetCookie(res, id) {
     res.cookie('token', token, {
         httpOnly: true,
         secure: true,
-        sameSite: "None",
+        sameSite: "none",
         maxAge: 20 * 24 * 60 * 60 * 1000
     })
 
