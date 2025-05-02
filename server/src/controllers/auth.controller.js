@@ -85,7 +85,7 @@ export async function checkAuth(req,res){
         }
         res.status(200).json({ success: true, user:user });
     } catch (error) {
-        res.status(403).json({ success: false, error: err.message });
+        res.status(403).json({ success: false, error: error.message });
     }
 }
 
